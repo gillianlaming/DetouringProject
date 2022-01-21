@@ -9,12 +9,10 @@ namespace DetouringProject
 {
     class Reflection
     {
-        private Type _targetType;
         private string _eventOverride;
       //  private string _handlerToOverride;
-        public Reflection(Type type, string eventToOverride)
+        public Reflection(string eventToOverride)
         {
-            _targetType = type;
             _eventOverride = eventToOverride;
            // _handlerToOverride = handlerToOverride;
         }
@@ -44,8 +42,6 @@ namespace DetouringProject
             MethodInfo addHandler = eventInfo.GetAddMethod();
             Object[] addHandlerArgs = { d };
             addHandler.Invoke(assemblyAsObj, addHandlerArgs);
-
-            
         }
 
         private void OnChangedMethod(object sender, FileSystemEventArgs e)

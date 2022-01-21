@@ -25,17 +25,17 @@ namespace DetouringProject
                                  | NotifyFilters.LastWrite
                                  | NotifyFilters.Size;
 
-           // watcher.Changed += new FileSystemEventHandler(OnChanged);
+            watcher.Changed += OnChanged;
             watcher.Created += OnCreated;
             watcher.Deleted += OnDeleted;
             watcher.Renamed += OnRenamed;
             watcher.Error += OnError;
 
-            //only watch for .config files
             watcher.Filter = "*.txt";
             watcher.IncludeSubdirectories = true;
             watcher.EnableRaisingEvents = true;
         }
+
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
             
