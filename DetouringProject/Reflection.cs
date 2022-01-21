@@ -24,18 +24,15 @@ namespace DetouringProject
             //Assembly assembly = _targetType.Assembly;
             //Assembly assembly = Assembly.GetExecutingAssembly();
             Assembly assembly = typeof(FSW).Assembly;
-            
-            Console.WriteLine("Currently executing assembly:");
-            Console.WriteLine("   {0}\n", assembly.FullName);
 
-            Type type = assembly.GetType("FSW"); //todo: unhardcode this?
+            Type type = assembly.GetType("DetouringProject.FSW"); //todo: unhardcode this?
 
             //Create our own instance of this type
             // There needs to be a default constructor for this to work
-            Object assemblyAsObj = Activator.CreateInstance(_targetType);
+            Object assemblyAsObj = Activator.CreateInstance(type);
 
             //Get the event we want to update
-            EventInfo eventInfo = _targetType.GetEvent(_eventOverride);
+            EventInfo eventInfo = type.GetEvent(_eventOverride);
             Type eventHandlingDelegate = eventInfo.EventHandlerType;
 
             //Get the method which handles this event
@@ -47,6 +44,8 @@ namespace DetouringProject
             MethodInfo addHandler = eventInfo.GetAddMethod();
             Object[] addHandlerArgs = { d };
             addHandler.Invoke(assemblyAsObj, addHandlerArgs);
+
+            
         }
 
         private void OnChangedMethod(object sender, FileSystemEventArgs e)

@@ -15,11 +15,9 @@ namespace DetouringProject
 
         }
 
-        public FSW(string path) : base()
+        public void Init()
         {
-            this.watcher = new FileSystemWatcher(path);
-
-
+            this.watcher = new FileSystemWatcher(@"\\iisdist\privates\glaming");
             watcher.NotifyFilter = NotifyFilters.Attributes
                                  | NotifyFilters.DirectoryName
                                  | NotifyFilters.FileName
@@ -27,7 +25,7 @@ namespace DetouringProject
                                  | NotifyFilters.LastWrite
                                  | NotifyFilters.Size;
 
-            watcher.Changed += new FileSystemEventHandler(OnChanged);
+           // watcher.Changed += new FileSystemEventHandler(OnChanged);
             watcher.Created += OnCreated;
             watcher.Deleted += OnDeleted;
             watcher.Renamed += OnRenamed;
@@ -38,7 +36,6 @@ namespace DetouringProject
             watcher.IncludeSubdirectories = true;
             watcher.EnableRaisingEvents = true;
         }
-        
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
             
