@@ -9,6 +9,7 @@ namespace DetouringProject
     class FSW : FileSystemWatcher
     {
         public FileSystemWatcher watcher;
+        public bool enableRaisingEvents = false;
        
         public FSW() : base()
         {
@@ -33,10 +34,11 @@ namespace DetouringProject
 
             watcher.Filter = "*.txt";
             watcher.IncludeSubdirectories = true;
-            watcher.EnableRaisingEvents = true;
+            watcher.EnableRaisingEvents = enableRaisingEvents;
         }
 
-        private static void OnChanged(object sender, FileSystemEventArgs e)
+        
+        private void OnChanged(object sender, FileSystemEventArgs e)
         {
             
             if (e.ChangeType != WatcherChangeTypes.Changed)
@@ -46,7 +48,7 @@ namespace DetouringProject
             Console.WriteLine($"Changed: {e.FullPath}");
             
         }
-        
+
         private static void OnCreated(object sender, FileSystemEventArgs e)
         {
             string value = $"Created: {e.FullPath}";
